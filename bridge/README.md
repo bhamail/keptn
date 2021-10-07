@@ -2,7 +2,7 @@
 
 Keptn bridge allows to browse the Keptn events.
 
-Note that npm dependencies are separated into two parts. Root level `package.json` contains dependencies for angular and other general requirements. Express server dependencies are located inside `package.json` located in server folder.
+Note that yarn dependencies are separated into two parts. Root level `package.json` contains dependencies for angular and other general requirements. Express server dependencies are located inside `package.json` located in server folder.
 
 ## Installation
 
@@ -106,8 +106,8 @@ kubectl delete -f deploy/service.yaml
 
 ## Local development
 
-1. Run `npm install` from bridge root level.
-2. Run `npm install` from server folder.
+1. Run `yarn install` from bridge root level.
+2. Run `yarn install` from server folder.
 3. Set `API_URL` and `API_TOKEN` environment variables, depending on your Keptn installation and operating system:
    **Linux/MacOS**
    ```console
@@ -119,8 +119,19 @@ kubectl delete -f deploy/service.yaml
    set API_URL=http://keptn.127.0.0.1.nip.io/api
    set API_TOKEN=1234-exam-ple
    ```
-4. Run `npm run start:dev` from bridge root level to start the express server and the Angular app.
+4. Run `yarn start:dev` from bridge root level to start the express server and the Angular app.
 5. Access the web through the url shown on the console (e.g., http://localhost:3000/ ).
+
+### UI testing with Cypress
+[Cypress Reference](https://docs.cypress.io/api/table-of-contents)
+
+UI tests in Keptn Bridge must not require any API call. When writing tests, please make sure to mock every outgoing request to `/api` with `cy.intercept`<br/>
+[Cypress Intercept Reference](https://docs.cypress.io/api/commands/intercept)
+
+To test your UI tests locally, use following commands:
+* `yarn start:ci` - this serves Angular on port 3000 with no live reload - this will also ensure, that no API connection is made.
+* `yarn cypress:open` - Development of tests<br/>This opens a browser where changes where you can run your tests and inspect them. This will be automatically updated on every code change made on the `*.spec.ts` files.
+* or `yarn cypress:run` - Headless browser mode also used in CI<br/>This will just run the tests on a headless browser without the possibility to inspect them.
 
 ## IDE Setup
 
@@ -208,7 +219,7 @@ The automatic ESLint configuration detects automatically the `.eslintrc.json` fi
 #### Visual Studio Code
 
 - Install the [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) extension
-- Run `npm i eslint`
+- Run `yarn add eslint`
 - Close and re-open VSCode for ESLint to work properly
 
 ### Additional configurations
